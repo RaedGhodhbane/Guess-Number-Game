@@ -13,7 +13,7 @@ export default function InputText(props) {
 const css = StyleSheet.create({
     text : {
         marginVertical : 20,
-        borderBottomColor : colors.greyColor,
+        borderBottomColor : colors.grey,
         borderBottomWidth : 2,
         textAlign : "center",
         height : 30,

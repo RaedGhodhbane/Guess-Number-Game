@@ -13,7 +13,7 @@ const css = StyleSheet.create({
     container: {
         height : 80,
         width : "100%",
-        backgroundColor : colors.greenColor1,
+        backgroundColor : colors.primary,
         alignItems : "center",
         paddingTop : 30,
 
