@@ -4,6 +4,7 @@ import { StyleSheet, View, Text } from "react-native";
 
 import InputText from "../Components/InputText";
 import MyButtons from "../Components/MyButtons";
+import NumberConfirmed from "../Components/NumberConfirmed";
 import colors from "../Global/colors";
 
 
@@ -72,10 +73,9 @@ export default function StartGame() {
     </View>
 
     </View>
-    <View>
-        <Text> {confirmed?enterNumber:null} </Text>
-         {/* confirmed === true */}
-    </View>
+    <NumberConfirmed
+    confirmed = {confirmed}
+    enterNumber = {enterNumber}/>
     </View>
 
  );
