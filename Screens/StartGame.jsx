@@ -12,6 +12,7 @@ import colors from "../Global/colors";
 export default function StartGame() {
 
   const [enterNumber, setEnterNumber] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
 
 
 
@@ -26,10 +27,11 @@ export default function StartGame() {
   
   const handleReset = () => {
       setEnterNumber("")
+      setConfirmed(false)
   }
 
   const handleConfirm = () => {
-    console.log("confirm")
+        setConfirmed(true)
 }
 
 
@@ -70,7 +72,10 @@ export default function StartGame() {
     </View>
 
     </View>
-
+    <View>
+        <Text> {confirmed?enterNumber:null} </Text>
+         {/* confirmed === true */}
+    </View>
     </View>
 
  );
