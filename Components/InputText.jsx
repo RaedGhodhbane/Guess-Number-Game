@@ -3,8 +3,9 @@ import { StyleSheet, TextInput, View } from 'react-native'
 import colors from '../Global/colors'
 
 export default function InputText(props) {
+    console.log(props)
     return (
-            <TextInput style={css.text} {...props}
+            <TextInput  {...props} style={{...css.text, ...props.style}}
             
             />
     )
@@ -16,8 +17,6 @@ const css = StyleSheet.create({
         borderBottomColor : colors.grey,
         borderBottomWidth : 2,
         textAlign : "center",
-        height : 30,
-        width : 40
 
 
     }
