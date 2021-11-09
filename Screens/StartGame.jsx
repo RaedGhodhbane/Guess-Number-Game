@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
 import BoxShadow from "../Components/BoxShadow";
 
 import InputText from "../Components/InputText";
@@ -15,14 +15,16 @@ export default function StartGame() {
 
   const [enterNumber, setEnterNumber] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const [selectNumber, setSelectNumber] = useState('')
 
 
 
 
   const handleChange = (value) => {
 
-    setEnterNumber(value.replace(/[^0-9]/g,
-        ""));
+    setEnterNumber(value);
+    // .replace(/[^0-9]/g,
+    //   "")
 
 
   };
@@ -33,7 +35,26 @@ export default function StartGame() {
   }
 
   const handleConfirm = () => {
+        const myNumberChosen = parseInt(enterNumber)
+        if (myNumberChosen<=0 || myNumberChosen>=100 || isNaN(myNumberChosen))  {
+          Keyboard.dismiss()
+          Alert.alert(
+            "Invalid Number",
+            "Please enter a number between 1 & 99",
+            [
+              {
+                text: "Ok",
+                onPress: () => handleReset(),
+                style: "destructive"
+              },
+            ]
+          );
+        return
+        }
         setConfirmed(true)
+        Keyboard.dismiss()
+        setSelectNumber(myNumberChosen)
+        setEnterNumber('')
 }
 
   const handleSelect = () => {
@@ -42,7 +63,7 @@ export default function StartGame() {
 
 
   return (
-
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View style={css.screen}>
 
       <Text> Start Game Screen </Text>
@@ -83,7 +104,7 @@ export default function StartGame() {
     <Text> Select a Number : </Text>
     <NumberConfirmed
     confirmed = {confirmed}
-    enterNumber = {enterNumber}
+    enterNumber = {selectNumber}
     style={css.output}/>
         <MyButtons 
       onPress={() => handleSelect() }
@@ -91,8 +112,8 @@ export default function StartGame() {
       color={colors.grey}/>
      </BoxShadow>
      : null}
-
     </View>
+    </TouchableWithoutFeedback>
 
  );
 
