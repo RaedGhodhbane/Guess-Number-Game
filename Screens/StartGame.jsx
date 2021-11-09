@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { StyleSheet, View, Text } from "react-native";
+import BoxShadow from "../Components/BoxShadow";
 
 import InputText from "../Components/InputText";
 import MyButtons from "../Components/MyButtons";
@@ -34,6 +35,10 @@ export default function StartGame() {
   const handleConfirm = () => {
         setConfirmed(true)
 }
+
+  const handleSelect = () => {
+        console.log("number selected")
+  }
 
 
   return (
@@ -73,9 +78,20 @@ export default function StartGame() {
     </View>
 
     </View>
+
+  {confirmed ? <BoxShadow otherStyle={css.myShadow}>
+    <Text> Select a Number : </Text>
     <NumberConfirmed
     confirmed = {confirmed}
-    enterNumber = {enterNumber}/>
+    enterNumber = {enterNumber}
+    style={css.output}/>
+        <MyButtons 
+      onPress={() => handleSelect() }
+      title="Select"
+      color={colors.grey}/>
+     </BoxShadow>
+     : null}
+
     </View>
 
  );
@@ -108,5 +124,14 @@ const css = StyleSheet.create({
   buttonContainer: {
       width: 80,
       marginHorizontal: 2,
+  },
+
+  output: {
+    fontSize: 50,
+  },
+
+  myShadow: {
+    width: '80%',
+    alignItems: 'center',
   }
 });
