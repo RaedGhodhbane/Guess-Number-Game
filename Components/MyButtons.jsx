@@ -9,7 +9,5 @@ export default function MyButtons(props) {
 }
 
 const css = StyleSheet.create ({
-    Button : {
 
-    }
 })

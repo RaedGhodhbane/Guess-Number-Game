@@ -11,7 +11,7 @@ import colors from "../Global/colors";
 
 
 
-export default function StartGame() {
+export default function StartGame(props) {
 
   const [enterNumber, setEnterNumber] = useState("");
   const [confirmed, setConfirmed] = useState(false);
@@ -58,7 +58,7 @@ export default function StartGame() {
 }
 
   const handleSelect = () => {
-        console.log("number selected")
+        props.handleChangeUserNumber(selectNumber)
   }
 
 
