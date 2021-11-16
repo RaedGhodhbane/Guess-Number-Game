@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Alert, StyleSheet, Text, View } from 'react-native'
 import BoxShadow from '../Components/BoxShadow'
 import MyButtons from '../Components/MyButtons'
@@ -6,16 +6,24 @@ import colors from '../Global/colors'
 import { RandomNumber } from '../Utils/randomNumber'
 
 export default function ScreenGame(props) {
-    const [currentRandomNumber, setCurrentRandomNumber] = useState(RandomNumber(1,99,props.userNumberSelect))
+    const {userNumberSelect, handleGameOver, handleGameOverCounter} = props
+    const [currentRandomNumber, setCurrentRandomNumber] = useState(RandomNumber(1,99,userNumberSelect))
+    const [rounds, setRounds] = useState(0)
     const currentLowerNumber = useRef(1)
     const currentGreaterNumber = useRef(99)
+    useEffect(() => {
+            if (currentRandomNumber === userNumberSelect) {
+            handleGameOver()
+            handleGameOverCounter(rounds)
+    } 
+    }, [currentRandomNumber, userNumberSelect, handleGameOver])
 
 
-    const handleLower= () => {
-    if (currentRandomNumber < props.userNumberSelect) {
+    const handleNextRandom= (params) => {
+    if ((params ==='Lower' && currentRandomNumber < userNumberSelect) || (params==='Greater' && currentRandomNumber > userNumberSelect)) {
         return Alert.alert(
                 "You are wrong",
-                 "The number is greater than RandomNumber ?",
+                 `The number is ${params ==="lower" ? 'Lower' : "greater"}  than RandomNumber ?`,
             [
               {
                 text: "Ok",
@@ -24,28 +32,19 @@ export default function ScreenGame(props) {
             ]
           );
     }
-    currentGreaterNumber.current = currentRandomNumber
-    console.log(currentGreaterNumber.current)
-    setCurrentRandomNumber(RandomNumber(currentLowerNumber.current,currentGreaterNumber.current,currentRandomNumber))
-}
-
-    const handleGreater= () => {
-        if (currentRandomNumber > props.userNumberSelect) {
-            return Alert.alert(
-                    "You are wrong",
-                     "The number is lower than RandomNumber ?",
-                [
-                  {
-                    text: "Ok",
-                    style: "Cancel"
-                  },
-                ]
-              );
-        }
-
+    if (params==='Lower') {
+            currentGreaterNumber.current = currentRandomNumber
+            console.log(currentGreaterNumber.current)
+    }
+    else {
         currentLowerNumber.current = currentRandomNumber
         console.log(currentLowerNumber.current)
-        setCurrentRandomNumber(RandomNumber(currentLowerNumber.current,currentGreaterNumber.current,currentRandomNumber))
+    }
+    
+    
+    setCurrentRandomNumber(RandomNumber(currentLowerNumber.current,currentGreaterNumber.current,currentRandomNumber))
+    let increment = rounds + 1
+    setRounds(increment)
 }
 
     return (
@@ -59,12 +58,12 @@ export default function ScreenGame(props) {
             <MyButtons
             title='Lower'
             color={colors.secendary}
-            onPress={() => handleLower()}
+            onPress={() => handleNextRandom('Lower')}
             />
             </View>
             <View  style={css.buttonStyle}>
             <MyButtons
-            onPress={() => handleGreater()}
+            onPress={() => handleNextRandom('Greater')}
             title='Greater'
             color={colors.primary}
             />

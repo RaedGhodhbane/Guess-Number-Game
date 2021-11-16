@@ -4,9 +4,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import Header from './Components/Header';
 import ScreenGame from './Screens/ScreenGame';
 import StartGame from './Screens/StartGame';
+import GameOver from './Screens/GameOver';
 
 export default function App() {
 const [userNumberSelect, setUserNumberSelect] = useState()
+// const [guessRound, setGuessRound] = useState(0)
+const [myGameOver, setMyGameOver] = useState(false)
+const [myCounter, setMyCounter] = useState(0)
+
+
 
 //selectNumber = number
 
@@ -15,12 +21,31 @@ const handleChangeUserNumber = (number) => {
   // console.log(number)
 };
 
+const handleGameOver = () => {
+  setMyGameOver(true)
+}
+
+const handleGameOverCounter = (round) => {
+  setMyCounter(round)
+}
+
+const restartGame = () => {
+  setUserNumberSelect()
+  setMyGameOver(false)
+  setMyCounter(0)
+}
+
+
 let myRenderScreen= (
 <StartGame handleChangeUserNumber={handleChangeUserNumber}/>
 );
 
-if (userNumberSelect) {
-  myRenderScreen = <ScreenGame userNumberSelect={userNumberSelect}/>
+if (userNumberSelect && !myGameOver) {
+  myRenderScreen = <ScreenGame handleGameOverCounter = {handleGameOverCounter} handleGameOver={handleGameOver} userNumberSelect={userNumberSelect}/>
+}
+
+else if (myGameOver) {
+  myRenderScreen = <GameOver counter = {myCounter} userNumberSelected= {userNumberSelect} restartGame= {restartGame}/>
 }
 
   return (

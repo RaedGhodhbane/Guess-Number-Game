@@ -1,14 +1,35 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
+import BoxShadow from '../Components/BoxShadow'
+import MyButtons from '../Components/MyButtons'
+import colors from '../Global/colors'
 
-export default function GameOver() {
+export default function GameOver(props) {
     return (
-        <View>
+        <View style={css.container}>
+            <Text> Game Over </Text>
+            <BoxShadow> 
+            <Text> My number is : {props.userNumberSelected} </Text>
+            <Text> Number of Rounds : {props.counter} </Text>
+            </BoxShadow>
+            <View style={css.bouton}>
+                <MyButtons 
+                title="Start New Game"
+                color={colors.white}
+                onPress= {props.restartGame}
+                />
+            </View>
             
+
         </View>
     )
 }
 
 const css= StyleSheet.create({
-    
+    container : {
+        alignItems : 'center',
+    },
+    bouton : {
+        backgroundColor : colors.primary,
+    }
 })
