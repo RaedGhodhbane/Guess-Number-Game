@@ -23,5 +23,6 @@ const css = StyleSheet.create({
         color : colors.whiteColor,
         fontSize : 20,
         textTransform : "uppercase",
+        fontFamily : "boldfont",
     }
 })

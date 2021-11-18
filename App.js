@@ -5,12 +5,41 @@ import Header from './Components/Header';
 import ScreenGame from './Screens/ScreenGame';
 import StartGame from './Screens/StartGame';
 import GameOver from './Screens/GameOver';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+
+// Import fonts
+const fetchFont = () => {
+  return Font.loadAsync({ 
+    "boldfont" : require('./assets/fonts/Roboto-Bold.ttf'),
+    "regularfont" : require('./assets/fonts/Roboto-Regular.ttf'),
+    
+  })
+}
+
+
+
+
+
 
 export default function App() {
 const [userNumberSelect, setUserNumberSelect] = useState()
 // const [guessRound, setGuessRound] = useState(0)
 const [myGameOver, setMyGameOver] = useState(false)
 const [myCounter, setMyCounter] = useState(0)
+const [isReady, setIsReady] = useState(false)
+
+
+if (!isReady) {
+  return (
+    <AppLoading
+      startAsync={fetchFont}
+      onFinish={() => setIsReady(true)}
+      onError={(err) => console.log(err)}
+    />
+  ); }
+
+
 
 
 
