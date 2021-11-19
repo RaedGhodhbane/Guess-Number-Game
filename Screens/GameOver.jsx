@@ -1,11 +1,12 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { StyleSheet, View, Text, Image, ScrollView } from 'react-native'
 import BoxShadow from '../Components/BoxShadow'
 import MyButtons from '../Components/MyButtons'
 import colors from '../Global/colors'
 
 export default function GameOver(props) {
     return (
+        <ScrollView>
         <View style={css.container}>
             <Text> Game Over </Text>
             <Image
@@ -24,9 +25,8 @@ export default function GameOver(props) {
                 onPress= {props.restartGame}
                 />
             </View>
-            
-
-        </View>
+            </View>
+            </ScrollView>
     )
 }
 

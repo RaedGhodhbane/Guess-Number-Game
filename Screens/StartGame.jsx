@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { StyleSheet, View, Text, TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
+import { StyleSheet, View, Text, TouchableWithoutFeedback, Keyboard, Alert, ScrollView, Dimensions } from "react-native";
 import BoxShadow from "../Components/BoxShadow";
 
 import InputText from "../Components/InputText";
@@ -11,13 +11,28 @@ import colors from "../Global/colors";
 
 
 
+
 export default function StartGame(props) {
 
   const [enterNumber, setEnterNumber] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [selectNumber, setSelectNumber] = useState('')
+  const [widthButton, setWidthButton] = useState(Dimensions.get('window').width / 4)
+  // console.log(Dimensions.get('window').height)
+  console.log(Dimensions.get('window'))
+  // console.log(Dimensions.get('screens'))
 
 
+  useEffect(() => {
+    const updateWidthButton = () => {
+      setWidthButton(Dimensions.get('window').width / 4)
+    }
+    const dimensionWidth = Dimensions.addEventListener(
+      "change",
+      updateWidthButton
+    );
+    return () => dimensionWidth?.remove();
+  });
 
 
   const handleChange = (value) => {
@@ -49,6 +64,7 @@ export default function StartGame(props) {
               },
             ]
           );
+
         return
         }
         setConfirmed(true)
@@ -63,6 +79,7 @@ export default function StartGame(props) {
 
 
   return (
+    <ScrollView>
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View style={css.screen}>
 
@@ -84,14 +101,14 @@ export default function StartGame(props) {
 
       />
     <View style={css.buttonsContainer}>
-    <View style={css.buttonContainer}>
+    <View style={{width : widthButton}}>
     <MyButtons 
       onPress={() => handleReset()}
       title="Reset"
       color={colors.primary}/>
     </View>
 
-    <View style={css.buttonContainer}>
+    <View style={{width : widthButton}}>
     <MyButtons 
       onPress={() => handleConfirm()}
       title="Confirm"
@@ -114,6 +131,7 @@ export default function StartGame(props) {
      : null}
     </View>
     </TouchableWithoutFeedback>
+    </ScrollView>
 
  );
 
@@ -134,17 +152,12 @@ const css = StyleSheet.create({
 
     height: 30,
 
-    width: 40,
+    width: Dimensions.get('window').width>500 ? 50 : 40,
 
   },
 
   buttonsContainer: {
       flexDirection: "row",
-  },
-
-  buttonContainer: {
-      width: 80,
-      marginHorizontal: 2,
   },
 
   output: {

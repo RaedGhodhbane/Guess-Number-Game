@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Alert, StyleSheet, Text, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import BoxShadow from '../Components/BoxShadow'
 import MyButtons from '../Components/MyButtons'
 import colors from '../Global/colors'
@@ -23,7 +23,7 @@ export default function ScreenGame(props) {
     if ((params ==='Lower' && currentRandomNumber < userNumberSelect) || (params==='Greater' && currentRandomNumber > userNumberSelect)) {
         return Alert.alert(
                 "You are wrong",
-                 `The number is ${params ==="lower" ? 'Lower' : "greater"}  than RandomNumber ?`,
+                 `The number is ${params ==='Lower' ? 'greater' : "lower"} than the RandomNumber`,
             [
               {
                 text: "Ok",
@@ -34,11 +34,11 @@ export default function ScreenGame(props) {
     }
     if (params==='Lower') {
             currentGreaterNumber.current = currentRandomNumber
-            console.log(currentGreaterNumber.current)
+            // console.log(currentGreaterNumber.current)
     }
     else {
         currentLowerNumber.current = currentRandomNumber
-        console.log(currentLowerNumber.current)
+        // console.log(currentLowerNumber.current)
     }
     
     
@@ -48,6 +48,7 @@ export default function ScreenGame(props) {
 }
 
     return (
+        <ScrollView>
         <View style={css.container}>
             <BoxShadow otherStyle={css.box}>
             <Text> Screen Game </Text>
@@ -70,6 +71,7 @@ export default function ScreenGame(props) {
             </View>
             </BoxShadow>
         </View>
+        </ScrollView>
     )
 }
 
@@ -77,6 +79,7 @@ const css= StyleSheet.create({
     container : {
         alignItems : 'center',
         padding : 10,
+        flex : 1,
 
     },
 

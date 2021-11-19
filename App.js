@@ -87,5 +87,6 @@ else if (myGameOver) {
 
 const styles = StyleSheet.create({
   container: {
+    flex : 1,
   },
 });
